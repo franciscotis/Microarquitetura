@@ -1,0 +1,62 @@
+15:27:13 **** Incremental Build of configuration Nios II for project P1 ****
+make all 
+Info: Building ../P1_bsp/
+C:/intelFPGA_lite/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../P1_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../P1_bsp//HAL/inc -I../P1_bsp/ -I../P1_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_C_PLUS_PLUS -DALT_NO_CLEAN_EXIT -D'exit(a)=_exit(a)' -DALT_NO_EXIT -DALT_USE_DIRECT_DRIVERS -DALT_NO_INSTRUCTION_EMULATION -DALT_USE_SMALL_DRIVERS -DSMALL_C_LIB -DALT_SINGLE_THREADED    -Os -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:87:31: error: excess elements in char array initializer
+  char opcoes[] = {"Opção 01", "Opção 02", "Opção 03", "Opção 04", "Opção 05"};
+                               ^
+main.c:87:31: note: (near initialization for 'opcoes')
+main.c:87:43: error: excess elements in char array initializer
+  char opcoes[] = {"Opção 01", "Opção 02", "Opção 03", "Opção 04", "Opção 05"};
+                                           ^
+main.c:87:43: note: (near initialization for 'opcoes')
+main.c:87:55: error: excess elements in char array initializer
+  char opcoes[] = {"Opção 01", "Opção 02", "Opção 03", "Opção 04", "Opção 05"};
+                                                       ^
+main.c:87:55: note: (near initialization for 'opcoes')
+main.c:87:67: error: excess elements in char array initializer
+  char opcoes[] = {"Opção 01", "Opção 02", "Opção 03", "Opção 04", "Opção 05"};
+                                                                   ^
+main.c:87:67: note: (near initialization for 'opcoes')
+main.c:88:35: error: excess elements in char array initializer
+  char submenu[] = {"Mensagem 01", "Mensagem 02", "Mensagem 03", "Mensagem 04", "Mensagem 05"};
+                                   ^
+main.c:88:35: note: (near initialization for 'submenu')
+main.c:88:50: error: excess elements in char array initializer
+  char submenu[] = {"Mensagem 01", "Mensagem 02", "Mensagem 03", "Mensagem 04", "Mensagem 05"};
+                                                  ^
+main.c:88:50: note: (near initialization for 'submenu')
+main.c:88:65: error: excess elements in char array initializer
+  char submenu[] = {"Mensagem 01", "Mensagem 02", "Mensagem 03", "Mensagem 04", "Mensagem 05"};
+                                                                 ^
+main.c:88:65: note: (near initialization for 'submenu')
+main.c:88:80: error: excess elements in char array initializer
+  char submenu[] = {"Mensagem 01", "Mensagem 02", "Mensagem 03", "Mensagem 04", "Mensagem 05"};
+                                                                                ^
+main.c:88:80: note: (near initialization for 'submenu')
+main.c:94:17: warning: implicit declaration of function 'IORD' [-Wimplicit-function-declaration]
+   estadoBotao = IORD(PI_BASE,0);
+                 ^
+main.c:132:10: warning: passing argument 1 of 'print' makes pointer from integer without a cast [-Wint-conversion]
+    print(submenu[menu], 11);
+          ^
+main.c:69:6: note: expected 'char *' but argument is of type 'char'
+ void print(char m[16], int n) {
+      ^
+main.c:133:4: warning: implicit declaration of function 'IORW' [-Wimplicit-function-declaration]
+    IORW(PO_BASE, menu);
+    ^
+main.c:136:10: warning: passing argument 1 of 'print' makes pointer from integer without a cast [-Wint-conversion]
+    print(opcoes[menu], 8);
+          ^
+main.c:69:6: note: expected 'char *' but argument is of type 'char'
+ void print(char m[16], int n) {
+      ^
+make: *** [obj/default/main.o] Error 1
+
+15:27:18 Build Finished (took 4s.255ms)
+

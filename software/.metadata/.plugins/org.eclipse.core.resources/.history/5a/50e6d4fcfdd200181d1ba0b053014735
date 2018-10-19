@@ -1,0 +1,96 @@
+#include <unistd.h>
+#include "system.h"
+/*
+ * BOTÕES
+ * LEGENDA ->
+ * BTN 1 SUBIR
+ * BTN 2 - DESCER
+ * BTN 3 - SELECIONAR
+ * BTN 4 - VOLTAR
+ * B1 	B2 	B3 	B4
+ * 0	0	0	0 == IGNORADO
+ * 0	0	0	1 == BOTÃO DE VOLTAR SELECIONADO
+ * 0	0	1	0 == BOTÃO DE SELECIONAR
+ * 0	0	1	1 == IGNORADO
+ * 0	1	0	0 == DESCER
+ * 0	1	0	1 == IGNORADO
+ * 0	1	1	0 == IGNORADO
+ * 0	1	1	1 == IGNORADO
+ * 1	0	0	0 == SUBIR
+ * 1	0	0	1 == IGNORADO
+ * 1	0	1	0 == IGNORADO
+ * 1	0	1	1 == IGNORADO
+ * 1	1	0	0 == IGNORADO
+ * 1	1	0	1 == IGNORADO
+ * 1	1	1	0 == IGNORADO
+ * 1	1	1	1  == NENHUM BOTÃO SELECIONADO
+ *
+ * 0000
+ * 0001 - 1
+ * 0010 - 2
+ * 0100 - 4
+ * 1000 - 8
+ */
+void init() { //Método para a inicialização
+	usleep(15000);
+	ALT_CI_LCD(0,0x38);
+
+	usleep(4100);
+	ALT_CI_LCD(0,0x38);
+
+	usleep(100);
+	ALT_CI_LCD(0,0x38);
+
+	usleep(5000);
+	ALT_CI_LCD(0,0x38);
+
+	usleep(100);
+	ALT_CI_LCD(0,0x08);
+
+	usleep(100);
+	ALT_CI_LCD(0,0x0C);
+
+	usleep(100);
+	ALT_CI_LCD(0,0x06);
+
+	usleep(100);
+	ALT_CI_LCD(0,0x02);
+
+	usleep(2000);
+	ALT_CI_LCD(0,0x01);
+
+	usleep(2000);
+}
+
+void print(char m[16], int n) {
+	usleep(2000);
+	ALT_CI_LCD(0,0x02);
+
+	usleep(2000);
+	ALT_CI_LCD(0,0x01);
+
+	for(int i = 0; i < n; i++) {
+		usleep(2000);
+		ALT_CI_LCD(1,m[i]);
+	}
+
+	usleep(2000);
+	ALT_CI_LCD(0,0x00);
+}
+
+int main() {
+	init();
+	char opcoes[] = {"Opção 01","Opção 02", "Opção 03", "Opção 04","Opção 05"};
+	char submenu[] = {"Mensagem 01", "Mensagem 02","Mensagem 03","Mensagem 04","Mensagem 05"};
+	int estadoBotao = IORD(PI_BASE,0);
+	int botaoPrincipal;
+
+
+
+	char opcao [] = {"Opção"};
+
+
+	//print("Cole Francis?", 13);
+
+	return 0;
+}
