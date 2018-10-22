@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include "system.h"
+#include "altera_avalon_pio_regs.h"
 
 /*
  * BOTÕES
@@ -84,28 +85,18 @@ void print(char m[16], int n) {
 
 int main() {
 	init();
-	char opcoes[5][1];
 
-	opcoes[0][0] = "Menu 01";
-	opcoes[1][0] = "Menu 02";
-	opcoes[2][0] = "Menu 03";
-	opcoes[3][0] = "Menu 04";
-	opcoes[4][0] = "Menu 05";
-
-	char submenu[5][];
-		submenu[0][0] = "Mensagem 01";
-		submenu[1][0] = "Mensagem 02";
-		submenu[2][0] = "Mensagem 03";
-		submenu[3][0] = "Mensagem 04";
-		submenu[4][0] = "Mensagem 05";
+	char opcoes[5][7] = {"Menu 01", "Menu 02", "Menu 03", "Menu 04", "Menu 05"};
+	char submenu[5][11] = {"Mensagem 01", "Mensagem 02", "Mensagem 03", "Mensagem 04", "Mensagem 05"};
 
 	int isSubMenu = 0;
 	int estadoBotao = 0;
+	int estado = 0;
 	int menu = 0;
 
 	while(1){
 		estadoBotao = IORD(PI_BASE,0);
-		usleep(90000);
+		usleep(100000);
 
 		switch(estadoBotao){
 			case 7:
@@ -114,6 +105,8 @@ int main() {
 						menu += 1;
 					else
 						menu = 1;
+
+					estado = 1;
 				}
 
 				break;
@@ -124,30 +117,39 @@ int main() {
 						menu -= 1;
 					else
 						menu = 4;
+
+					estado = 1;
 				}
 
 				break;
 
 			case 13:
-				if(!isSubMenu)
+				if(!isSubMenu) {
 					isSubMenu = 1;
+					estado = 1;
+				}
 
 				break;
 
 			case 14:
-				if(isSubMenu)
+				if(isSubMenu) {
 					isSubMenu = 0;
+					estado = 1;
+				}
 
 				break;
 		}
 
-		if(isSubMenu) {
-			print(submenu[menu], 11);
-			IORW(PO_BASE, menu);
-		}
-		else{
-			print(opcoes[menu], 8);
-			IORW(PO_BASE, 0);
+		if(estado) {
+			if(isSubMenu) {
+				print(submenu[menu], 11);
+				IOWR(PO_BASE, 0, menu);
+			}else {
+				print(opcoes[menu], 7);
+				IOWR(PO_BASE, 0, 15);
+			}
+
+			estado = 0;
 		}
 	}
 
